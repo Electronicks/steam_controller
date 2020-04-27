@@ -59,6 +59,11 @@ struct vec3
     int16_t x, y, z;
 };
 
+struct quat
+{
+    int16_t x, y, z, w;
+};
+
 enum class event_key : uint32_t
 {
     UPDATE = (1),
@@ -79,7 +84,7 @@ struct update_event
     vec2 left_axis;
     vec2 right_axis;
 
-    vec3 orientation;
+    quat orientation;
     vec3 acceleration;
     vec3 angular_velocity;
 };

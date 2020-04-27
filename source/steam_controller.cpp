@@ -338,9 +338,10 @@ uint8_t parse_event(steam_controller::event* pEvent, const uint8_t* eventData, i
         pEvent->update.angular_velocity.y = eventData[0x24] | (eventData[0x25] << 8);
         pEvent->update.angular_velocity.z = eventData[0x26] | (eventData[0x27] << 8);
 
-        pEvent->update.orientation.x = eventData[0x28] | (eventData[0x29] << 8);
-        pEvent->update.orientation.y = eventData[0x2a] | (eventData[0x2b] << 8);
-        pEvent->update.orientation.z = eventData[0x2c] | (eventData[0x2d] << 8);
+        pEvent->update.orientation.w = eventData[0x28] | (eventData[0x29] << 8);
+        pEvent->update.orientation.x = eventData[0x2a] | (eventData[0x2b] << 8);
+        pEvent->update.orientation.y = eventData[0x2c] | (eventData[0x2d] << 8);
+        pEvent->update.orientation.z = eventData[0x2e] | (eventData[0x2f] << 8);
         break;
 
     case static_cast<std::uint8_t>(event_key::BATTERY):
