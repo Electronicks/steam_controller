@@ -7,7 +7,16 @@ bool check_update(steam_controller::update_event& update)
   if (update.buttons & static_cast<int>(steam_controller::Button::A))
     return false;
 
-  std::cout << "buttons: 0x" << std::hex << update.buttons << std::dec << " left: (" << update.left_axis.x << "," << update.left_axis.y << ") right: (" << update.right_axis.x << "," << update.right_axis.y << ")" << std::endl;
+  if (update.buttons != 0)
+	  std::cout << "buttons: 0x" << std::hex << update.buttons << " " << std::dec << std::endl;
+  if (update.left_axis.x != 0 || update.left_axis.y != 0)
+	  std::cout << "left: (" << update.left_axis.x << "," << update.left_axis.y << ") " << std::endl;
+  if (update.right_axis.x != 0 || update.right_axis.y != 0)
+	  std::cout << "right: (" << update.right_axis.x << ", " << update.right_axis.y << ") " << std::endl;
+  if(update.left_trigger != 0)
+	  std::cout << "left trigger: " << update.left_trigger << " " << std::endl;
+  if (update.right_trigger != 0)
+	  std::cout << "right trigger: " << update.right_trigger << " " << std::endl;
 
   return true;
 }

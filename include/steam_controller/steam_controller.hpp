@@ -30,6 +30,7 @@ enum class Button
     LG = (0x80U << 8U),             // Left grip button.
     RG = (0x01U << 16U),            // Right grip button.
     STICK = (0x02U << 16U),         // Stick or left pad is pressed down.
+	LPAD = STICK,					
     RPAD = (0x04U << 16U),          // Right pad pressed.
     LFINGER = (0x08U << 16U),       // If set, a finger is touching left touch pad.
     RFINGER = (0x10U << 16U),       // If set, a finger is touching right touch pad.
@@ -170,6 +171,8 @@ public:
         feedback(hand::left, amplitude, period, count);
         feedback(hand::right, amplitude, period, count);
     }
+
+	virtual bool send_feature(uint8_t *data, size_t len) = 0;
 
     virtual connection_state state() const = 0;
 };

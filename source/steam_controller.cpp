@@ -30,6 +30,7 @@
 #define STEAMCONTROLLER_GET_CHIPID 0xBA                // 1011 1010
 #define STEAMCONTROLLER_WRITE_EEPROM 0xC1              // 1100 0001
 
+
 namespace
 {
 
@@ -42,6 +43,8 @@ struct report_type
     uint8_t dataLen;
     uint8_t data[62];
 };
+
+static inline void add_setting(report_type* report, std::uint8_t setting, std::uint16_t value);
 
 inline std::uint16_t operator"" _u(unsigned long long value)
 {
@@ -152,6 +155,15 @@ bool execute_initialization_sequence(hid_device* pDevice, bool wireless)
         // fprintf(stderr, "CLEAR_MAPPINGS failed for controller %p\n", pDevice);
         return false;
     }
+
+	std::memset(&featureReport, 0, sizeof(featureReport));
+	featureReport.featureId = STEAMCONTROLLER_SET_SETTINGS;
+	add_setting(&featureReport, 0x14, 0x002e); // enable gyro
+	if (!set_report(pDevice, &featureReport))
+	{
+		// fprintf(stderr, "Enable gyro failed for controller %p\n", pDevice);
+		return false;
+	}
 
 #if 0
     // TODO: Find out more about the chip id.
@@ -468,6 +480,15 @@ public:
     {
         return m_state;
     }
+
+	bool send_feature(uint8_t *data, size_t len) override
+	{
+		if (len == sizeof(report_type))
+		{
+			return load_report_for(m_device, reinterpret_cast<report_type*>(data));
+		}
+		throw std::exception("Can't send a feature if the length is wrong!");
+	}
 
     ~hidapi_controller() override
     {
