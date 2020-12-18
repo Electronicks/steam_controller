@@ -438,7 +438,7 @@ public:
 
         if (m_state == steam_controller::connection_state::connecting)
         {
-            if (e.key == steam_controller::event_key::CONNECTION)
+            if (event_type == int(steam_controller::event_key::CONNECTION) && e.key == steam_controller::event_key::CONNECTION)
             {
                 if (e.connection.message == steam_controller::connection_event::CONNECTED)
                 {
