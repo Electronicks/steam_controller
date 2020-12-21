@@ -3,8 +3,9 @@
 
 bool check_update(steam_controller::update_event& update)
 {
-  // End when pressing A
-  if (update.buttons & static_cast<int>(steam_controller::Button::A))
+  // End when pressing HOME+B
+  if (update.buttons & static_cast<int>(steam_controller::Button::HOME ) &&
+	  update.buttons & static_cast<int>(steam_controller::Button::B)     )
     return false;
 
   if (update.buttons != 0)

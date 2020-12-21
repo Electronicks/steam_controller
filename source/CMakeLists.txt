@@ -2,7 +2,7 @@ set(SOURCE_FILES)
 
 set(TARGET_NAME steam_controller)
 
-add_library(steam_controller
+add_library(steam_controller STATIC
   ../include/steam_controller/steam_controller.hpp
   steam_controller.cpp
   )
